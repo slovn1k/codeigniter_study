@@ -44,4 +44,18 @@ class BaseController extends \CI_Controller
         $this->load->driver('cache', array('adapter' => $this->cache_type, 'backup' => $this->backup_cache));
     }
 
+    public function renderText($text, $typography = false)
+    {
+        // Note that we don't do any cleaning of the text
+        // and leave that up to the client to take care of.
+        // However, we can auto_typography the text if we're asked nicely.
+
+        if ($typography === true) {
+            $this->load->helper('typography');
+            $text = auto_typography($text);
+        }
+
+        $this->output->enable_profiler(false)->set_content_type('text/plain')->set_output($text);
+    }
+
 }

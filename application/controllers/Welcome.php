@@ -27,6 +27,29 @@ class Welcome extends \App\BaseController
      */
     public function index()
     {
-        $this->load->view('welcome_message');
+        $username = 'Alex';
+
+        $data = array(
+            'user_name' => $username,
+        );
+
+        $user = array(
+            'first_name' => 'Alexandr',
+            'last_name' => 'Turcanu',
+        );
+
+		// load more data
+		$data = array(
+			'current_user' => 'Someone',
+			'user_theme' => 'Default theme',
+		);
+
+		$this->load->vars($data);
+
+        // passing data to view
+        // $this->load->view('welcome_message', $data);
+
+		// another way to pass data
+        $this->load->view('welcome_message', array('user' => $user));
     }
 }

@@ -76,4 +76,12 @@ class BaseController extends \CI_Controller
         return json_decode($this->input->raw_input_stream, $as_array, $depth);
     }
 
+    public function render_realtime()
+    {
+        while (ob_get_level() > 0) {
+            ob_end_flush();
+        }
+        ob_implicit_flush(true);
+    }
+
 }

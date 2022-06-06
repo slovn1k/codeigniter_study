@@ -38,18 +38,31 @@ class Welcome extends \App\BaseController
             'last_name' => 'Turcanu',
         );
 
-		// load more data
-		$data = array(
-			'current_user' => 'Someone',
-			'user_theme' => 'Default theme',
-		);
+        // load more data
+        $data = array(
+            'current_user' => 'Someone',
+            'user_theme' => 'Default theme',
+        );
 
-		$this->load->vars($data);
+        $this->load->vars($data);
 
         // passing data to view
         // $this->load->view('welcome_message', $data);
 
-		// another way to pass data
+        // another way to pass data
         $this->load->view('welcome_message', array('user' => $user));
+
+        // Make all of the data available for all views...
+
+		$this->data['some_value'] = 'Hello world';
+
+        $this->load->vars($this->data);
+        $this->load->view('layouts/header');
+
+        $this->load->view('layouts/site_navigation');
+
+        $this->load->view('layouts/the_actual_page_content');
+
+        $this->load->view('layouts/footer');
     }
 }

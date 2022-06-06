@@ -84,4 +84,25 @@ class BaseController extends \CI_Controller
         ob_implicit_flush(true);
     }
 
+    public function ajax_redirect($location = '')
+    {
+        $location = empty($location) ? '/' : $location;
+		
+        if (strpos($location, '/') !== 0 || strpos($location, '://') !== false) {
+            if (!function_exists('site_url')) {
+                $this->load->helper('url');
+
+            }
+
+            $location = site_url($location);
+
+        }
+
+        $script = "window.location='{$location}';";
+
+        $this->output->enable_profiler(false)
+            ->set_content_type('application/x-javascript')
+            ->set_output($script);
+    }
+
 }

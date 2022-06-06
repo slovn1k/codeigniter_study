@@ -58,4 +58,22 @@ class BaseController extends \CI_Controller
         $this->output->enable_profiler(false)->set_content_type('text/plain')->set_output($text);
     }
 
+    public function renderJson($json)
+    {
+        // Resources are one of the few things that the json
+        // encoder will refuse to handle.
+        if (is_resource($json)) {
+            throw new \RuntimeException('Unable to encode and output the JSON data.');
+        }
+
+        $this->output->enable_profiler(false)->set_content_type('application/json')->set_output(json_encode($json));
+    }
+
+    public function get_json($format = 'object', $depth = 512)
+    {
+        $as_array = ($format === 'array');
+
+        return json_decode($this->input->raw_input_stream, $as_array, $depth);
+    }
+
 }
